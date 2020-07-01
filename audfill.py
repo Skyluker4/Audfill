@@ -652,8 +652,21 @@ def fmt_filename(song_data: SongData, fmt: str, filename: str):
     if '%d' in fmt:
         fmt = fmt.replace('%d', str(index_dictionary(song_data.releaseDate).day))
 
-    # Replace double quotes with single quotes
-    fmt = fmt.replace('"', "'")
+    fmt += "\", |, ?, <, >, :, *, /, \\"
+
+    # Replace/remove invalid characters (", |, ?, <, >, :, *, /, \)
+    if '"' in fmt or '|' in fmt or '?' in fmt or '<' in fmt or '>' in fmt or ':' in fmt or '*' in fmt or '/' in fmt or '\\' in fmt:
+        error_print('WARNING: Invalid character(s) in filename found. Removing...')
+        fmt = fmt.replace('"', "'")
+        fmt = fmt.replace('|', "")
+        fmt = fmt.replace('?', "")
+        fmt = fmt.replace('<', "")
+        fmt = fmt.replace('>', "")
+        fmt = fmt.replace(':', "")
+        fmt = fmt.replace('*', "")
+        fmt = fmt.replace('/', "")
+        fmt = fmt.replace('\\', "")
+
 
     # Replace the placeholder
     if '\0' in fmt:
