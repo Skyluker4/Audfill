@@ -652,6 +652,9 @@ def fmt_filename(song_data: SongData, fmt: str, filename: str):
     if '%d' in fmt:
         fmt = fmt.replace('%d', str(index_dictionary(song_data.releaseDate).day))
 
+    # Replace double quotes with single quotes
+    fmt = fmt.replace('"', "'")
+
     # Replace the placeholder
     if '\0' in fmt:
         fmt = fmt.replace('\0', '%')
