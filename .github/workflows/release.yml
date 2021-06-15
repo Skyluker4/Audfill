@@ -31,7 +31,20 @@ jobs:
       run: | 
         python -m pip install --upgrade pip
         python -m pip install pyinstaller
-        
+    
+    - name: Download ffmpeg
+      uses: carlosperate/download-file-action@v1.0.3
+      with:
+        file-url: https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-full-shared.7z
+
+    - name: Extract ffmpeg
+      uses: DuckSoft/extract-7z-action@v1.0
+      with:
+        # archive path to extract
+        pathSource: ffmpeg-release-full-shared.7z
+        # path to place the extract
+        pathTarget: ffmpeg
+
     - name: Run pyinstaller
       run: pyinstaller -onefile audfill.py
       
